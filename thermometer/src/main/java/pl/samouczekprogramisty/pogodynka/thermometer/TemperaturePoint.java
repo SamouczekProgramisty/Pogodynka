@@ -4,7 +4,7 @@ import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
 
-public class TemperaturePoint extends DataPoint<BigDecimal> {
+public class TemperaturePoint extends MeasurementPoint<BigDecimal> {
     public TemperaturePoint(BigDecimal temperature) {
         super(temperature);
     }

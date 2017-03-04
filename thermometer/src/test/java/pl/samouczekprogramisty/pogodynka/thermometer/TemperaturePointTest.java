@@ -15,7 +15,7 @@ public class TemperaturePointTest {
     public void shouldCreateTemperatureMeasurment() {
         TemperaturePoint measurment = new TemperaturePoint(BigDecimal.ONE);
 
-        assertThat(measurment.getMeasurment(), is(BigDecimal.ONE));
+        assertThat(measurment.getMeasurement(), is(BigDecimal.ONE));
     }
 
     @Test
@@ -24,7 +24,7 @@ public class TemperaturePointTest {
         TemperaturePoint measurment = new TemperaturePoint(BigDecimal.ONE);
         DateTime afterMeasurment = DateTime.now().plusMillis(1);
 
-        DateTime measurmentTime = measurment.getPointTime();
+        DateTime measurmentTime = measurment.getMeasurementTime();
         assertThat(measurmentTime, greaterThan(beforeMeasurment));
         assertThat(measurmentTime, lessThan(afterMeasurment));
     }
@@ -34,6 +34,6 @@ public class TemperaturePointTest {
         DateTime measurementTime = new DateTime(2017, 3, 4, 11, 11);
         TemperaturePoint measurment = new TemperaturePoint(BigDecimal.ONE, measurementTime);
 
-        assertThat(measurment.toJson(), is("{\"pointTime\":\"2017-03-04T11:11:00.000+01:00\",\"measurment\":1}"));
+        assertThat(measurment.toJson(), is("{\"measurementTime\":\"2017-03-04T11:11:00.000+01:00\",\"measurement\":1}"));
     }
 }

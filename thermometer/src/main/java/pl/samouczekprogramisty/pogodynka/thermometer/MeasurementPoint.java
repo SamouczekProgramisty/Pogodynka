@@ -8,9 +8,11 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.ISODateTimeFormat;
 
-public abstract class DataPoint<T> {
-    protected final DateTime pointTime;
-    protected final T measurment;
+public abstract class MeasurementPoint<T> {
+
+    protected final DateTime measurementTime;
+
+    protected final T measurement;
 
     protected static final Gson GSON = new GsonBuilder()
         .registerTypeAdapter(
@@ -18,21 +20,21 @@ public abstract class DataPoint<T> {
                 (JsonSerializer<DateTime>) (dateTime, type, context) -> new JsonPrimitive(ISODateTimeFormat.dateTime().print(dateTime)))
         .create();
 
-    public DataPoint(T measurment) {
+    public MeasurementPoint(T measurment) {
         this(measurment, DateTime.now(DateTimeZone.UTC));
     }
 
-    public DataPoint(T measurment, DateTime pointTime) {
-        this.measurment = measurment;
-        this.pointTime = pointTime;
+    public MeasurementPoint(T measurment, DateTime measurementTime) {
+        this.measurement = measurment;
+        this.measurementTime = measurementTime;
     }
 
-    public DateTime getPointTime() {
-        return pointTime;
+    public DateTime getMeasurementTime() {
+        return measurementTime;
     }
 
-    public T getMeasurment() {
-        return measurment;
+    public T getMeasurement() {
+        return measurement;
     }
 
     public String toJson() {
