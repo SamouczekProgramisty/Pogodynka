@@ -1,6 +1,9 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 
+group = 'pl.samouczekprogramisty.pogodynka'
+version = '1.0-SNAPSHOT'
+
 repositories {
     jcenter()
 }
