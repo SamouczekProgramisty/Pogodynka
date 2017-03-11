@@ -12,26 +12,41 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.samouczekprogramisty.pogodynka.thermometer.exceptions.IllegalResponseCode;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.math.BigDecimal;
-public class TemperatureWriter implements Closeable{
+import java.net.URI;
+import java.util.Arrays;
+
+public class TemperatureWriter implements Closeable {
+
+    private static final Logger LOG = LoggerFactory.getLogger(TemperatureWriter.class);
 
     private final CloseableHttpClient httpClient;
 
-    public TemperatureWriter(CloseableHttpClient httpClient) {
+    private final URI dataSink;
+
+    public TemperatureWriter(CloseableHttpClient httpClient, URI dataSink) {
         this.httpClient = httpClient;
+        this.dataSink = dataSink;
     }
 
-    public void addTemperature(TemperaturePoint temperaturePoint) throws IOException {
+    public void addTemperature(TemperaturePoint temperaturePoint) {
         String measurement = temperaturePoint.toJson();
-        sendMeasurement("http://requestb.in/1hl319c1", measurement);
+        try {
+            sendMeasurement(measurement);
+        } catch (IOException exception) {
+            LOG.error(exception.getLocalizedMessage());
+            LOG.error(Arrays.toString(exception.getStackTrace()));
+            throw new RuntimeException(exception);
+        }
     }
 
-    private void sendMeasurement(String endpoint, String jsonMeasurement) throws IOException {
-        HttpPost request = new HttpPost(endpoint);
+    private void sendMeasurement(String jsonMeasurement) throws IOException {
+        HttpPost request = new HttpPost(dataSink);
         request.setEntity(new StringEntity(jsonMeasurement, ContentType.APPLICATION_JSON));
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             int statusCode = response.getStatusLine().getStatusCode();
@@ -41,18 +56,30 @@ public class TemperatureWriter implements Closeable{
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String... args) {
+        Arguments arguments = new Arguments(args);
         CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(
                 AuthScope.ANY,
-                new UsernamePasswordCredentials("user", "passwd"));
+                new UsernamePasswordCredentials(arguments.getUsername(), arguments.getPassword()));
+
+        LOG.info("Logging as {}", arguments.getUsername());
+
+        // TODO: replace that with proper implementation of thermometer
+        Thermometer thermometer = new DummyThermometer();
 
         HttpClientBuilder httpClientBuilder = HttpClients
                 .custom()
                 .setDefaultCredentialsProvider(credentialsProvider);
 
-        try (TemperatureWriter temperatureWriter = new TemperatureWriter(httpClientBuilder.build())) {
-            temperatureWriter.addTemperature(new TemperaturePoint(BigDecimal.TEN));
+        try (TemperatureWriter temperatureWriter = new TemperatureWriter(httpClientBuilder.build(), arguments.getDataSink())) {
+            TemperaturePoint currentTemperature = thermometer.measure();
+            LOG.info("Current temperature {}", currentTemperature);
+            temperatureWriter.addTemperature(currentTemperature);
+        } catch (IOException exception) {
+            LOG.error(exception.getLocalizedMessage());
+            LOG.error(Arrays.toString(exception.getStackTrace()));
+            throw new RuntimeException(exception);
         }
     }
 

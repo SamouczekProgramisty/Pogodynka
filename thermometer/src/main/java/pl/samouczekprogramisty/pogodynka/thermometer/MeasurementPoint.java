@@ -40,4 +40,12 @@ public abstract class MeasurementPoint<T> {
     public String toJson() {
         return GSON.toJson(this);
     }
+
+    @Override
+    public String toString() {
+        return "MeasurementPoint{" +
+                "measurementTime=" + measurementTime +
+                ", measurement=" + measurement +
+                '}';
+    }
 }
