@@ -18,14 +18,14 @@ public class Arguments {
     private String password;
 
     public Arguments(String... args) {
-        if (args.length != 4) {
+        if (args.length != 3) {
             LOG.error("There is something iffy with arguments ({})!", args.length);
             throw new IllegalArgumentException("You need to provide <username> <password> <data sink url> arguments!");
         }
-        username = args[1];
-        password = args[2];
+        username = args[0];
+        password = args[1];
         try {
-            dataSink = new URI(args[3]);
+            dataSink = new URI(args[2]);
         } catch (URISyntaxException exception) {
             LOG.error("There is something iffy with URL ({})!", args[3]);
             throw new RuntimeException(exception);

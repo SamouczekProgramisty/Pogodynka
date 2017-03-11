@@ -1,11 +1,27 @@
-apply plugin: 'java'
-apply plugin: 'maven'
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'idea'
+    id 'maven'
+}
 
 group = 'pl.samouczekprogramisty.pogodynka'
 version = '1.0-SNAPSHOT'
 
 repositories {
     jcenter()
+}
+
+jar {
+    manifest {
+        attributes("Main-Class": "pl.samouczekprogramisty.pogodynka.thermometer.TemperatureWriter")
+    }
+
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
 }
 
 dependencies {

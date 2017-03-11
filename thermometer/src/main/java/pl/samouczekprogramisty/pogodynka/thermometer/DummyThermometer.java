@@ -17,8 +17,7 @@ public class DummyThermometer implements Thermometer {
      */
     @Override
     public TemperaturePoint measure() {
-        double fractionPart = randomizer.nextInt(100) / 100.;
-        BigDecimal temperature = new BigDecimal(DateTime.now().getHourOfDay() + fractionPart);
+        BigDecimal temperature = new BigDecimal(DateTime.now().getHourOfDay() + randomizer.nextDouble());
         return new TemperaturePoint(temperature);
     }
 }
