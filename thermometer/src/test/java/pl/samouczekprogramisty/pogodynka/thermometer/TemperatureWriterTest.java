@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import pl.samouczekprogramisty.pogodynka.thermometer.exceptions.IllegalResponseCode;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -30,7 +31,7 @@ public class TemperatureWriterTest {
         temperatureWriter.addTemperature(new TemperaturePoint(BigDecimal.TEN));
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = IllegalResponseCode.class)
     public void shouldThrowExceptionOnWrongStatusCode() throws IOException {
         TemperatureWriter temperatureWriter = new TemperatureWriter(httpClient, null);
         CloseableHttpResponse mockResponse = getMockResponse(404);

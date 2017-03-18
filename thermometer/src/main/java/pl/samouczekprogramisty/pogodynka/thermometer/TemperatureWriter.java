@@ -17,7 +17,9 @@ import org.slf4j.LoggerFactory;
 import pl.samouczekprogramisty.pogodynka.thermometer.exceptions.IllegalResponseCode;
 
 import java.io.Closeable;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 
 public class TemperatureWriter implements Closeable {
@@ -58,20 +60,30 @@ public class TemperatureWriter implements Closeable {
 
         LOG.info("Logging as {}", arguments.getUsername());
 
-        // TODO: replace that with proper implementation of thermometer
-        Thermometer thermometer = new DummyThermometer();
+        try {
+            TemperaturePoint currentTemperature = getCurrentTemperature(arguments);
+            sendCurrentTemperature(arguments, credentialsProvider, currentTemperature);
+        } catch (IOException exception) {
+            LOG.error("Oups, there was a problem during reading/sending temperature!", exception);
+            System.exit(1);
+        }
+    }
 
+    private static void sendCurrentTemperature(Arguments arguments, CredentialsProvider credentialsProvider, TemperaturePoint currentTemperature) throws IOException {
         HttpClientBuilder httpClientBuilder = HttpClients
                 .custom()
                 .setDefaultCredentialsProvider(credentialsProvider);
 
         try (TemperatureWriter temperatureWriter = new TemperatureWriter(httpClientBuilder.build(), arguments.getDataSink())) {
-            TemperaturePoint currentTemperature = thermometer.measure();
             LOG.info("Current temperature {}", currentTemperature);
             temperatureWriter.addTemperature(currentTemperature);
-        } catch (IOException exception) {
-            LOG.error("Oups, there was a problem during reading/sending temperature!", exception);
-            System.exit(1);
+        }
+    }
+
+    private static TemperaturePoint getCurrentTemperature(Arguments arguments) throws IOException {
+        try (InputStream inputFile = new FileInputStream(arguments.getInputFilePath())) {
+            Thermometer thermometer = new FromFileThermometer(inputFile);
+            return thermometer.measure();
         }
     }
 

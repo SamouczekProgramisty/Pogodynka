@@ -17,8 +17,10 @@ public class Arguments {
 
     private String password;
 
+    private String inputFilePath;
+
     public Arguments(String... args) {
-        if (args.length != 3) {
+        if (args.length != 4) {
             LOG.error("There is something iffy with arguments ({})!", args.length);
             throw new IllegalArgumentException("You need to provide <username> <password> <data sink url> arguments!");
         }
@@ -30,6 +32,7 @@ public class Arguments {
             LOG.error("There is something iffy with URL ({})!", args[3]);
             throw new RuntimeException(exception);
         }
+        inputFilePath = args[3];
     }
 
     public URI getDataSink() {
@@ -42,5 +45,9 @@ public class Arguments {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getInputFilePath() {
+        return inputFilePath;
     }
 }
