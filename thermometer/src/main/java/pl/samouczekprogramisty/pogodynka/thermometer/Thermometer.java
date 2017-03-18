@@ -1,5 +1,7 @@
 package pl.samouczekprogramisty.pogodynka.thermometer;
 
+import java.io.IOException;
+
 public interface Thermometer {
 
     /**
@@ -7,5 +9,5 @@ public interface Thermometer {
      *
      * @return current temperature
      */
-    TemperaturePoint measure();
+    TemperaturePoint measure() throws IOException;
 }

@@ -19,7 +19,6 @@ import pl.samouczekprogramisty.pogodynka.thermometer.exceptions.IllegalResponseC
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Arrays;
 
 public class TemperatureWriter implements Closeable {
 
@@ -34,15 +33,9 @@ public class TemperatureWriter implements Closeable {
         this.dataSink = dataSink;
     }
 
-    public void addTemperature(TemperaturePoint temperaturePoint) {
+    public void addTemperature(TemperaturePoint temperaturePoint) throws IOException {
         String measurement = temperaturePoint.toJson();
-        try {
-            sendMeasurement(measurement);
-        } catch (IOException exception) {
-            LOG.error(exception.getLocalizedMessage());
-            LOG.error(Arrays.toString(exception.getStackTrace()));
-            throw new RuntimeException(exception);
-        }
+        sendMeasurement(measurement);
     }
 
     private void sendMeasurement(String jsonMeasurement) throws IOException {
@@ -77,9 +70,8 @@ public class TemperatureWriter implements Closeable {
             LOG.info("Current temperature {}", currentTemperature);
             temperatureWriter.addTemperature(currentTemperature);
         } catch (IOException exception) {
-            LOG.error(exception.getLocalizedMessage());
-            LOG.error(Arrays.toString(exception.getStackTrace()));
-            throw new RuntimeException(exception);
+            LOG.error("Oups, there was a problem during reading/sending temperature!", exception);
+            System.exit(1);
         }
     }
 
