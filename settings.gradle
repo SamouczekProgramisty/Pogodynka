@@ -2,3 +2,6 @@ rootProject.name = 'pogodynka'
 
 include 'thermometer'
 include 'datavault'
+
+project(':thermometer').buildFileName = 'thermometer.gradle'
+project(':datavault').buildFileName = 'datavault.gradle'
