@@ -1,0 +1,4 @@
+rootProject.name = 'pogodynka'
+
+include 'thermometer'
+include 'datavault'
