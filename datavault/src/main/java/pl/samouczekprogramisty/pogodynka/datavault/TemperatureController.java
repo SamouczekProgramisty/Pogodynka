@@ -47,7 +47,7 @@ public class TemperatureController {
             List<String> errorMessages = errors.getAllErrors().stream()
                     .map(e -> messageSource.getMessage(e.getCode(), e.getArguments(), null))
                     .collect(Collectors.toList());
-            return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(Collections.singletonMap("errors", errorMessages), HttpStatus.BAD_REQUEST);
         }
 
         temperatureService.addTemperature(temperature);
