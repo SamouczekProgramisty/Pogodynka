@@ -1,9 +1,6 @@
 package pl.samouczekprogramisty.pogodynka.datavault.model;
 
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.google.gson.Gson;
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
@@ -20,15 +17,9 @@ public class TemperatureMeasurement {
     public BigDecimal getTemperature() {
         return temperature;
     }
-    @JsonSerialize(using = JodaDateTimeSerializer.class)
-    @JsonDeserialize(using = JodaDateTimeDeserializer.class)
+
     public DateTime getWhenMeasured() {
         return whenMeasured;
-    }
-
-    public static TemperatureMeasurement parse(String json) {
-        Gson gson = new Gson();
-        return gson.fromJson(json, TemperatureMeasurement.class);
     }
 
     @Override
