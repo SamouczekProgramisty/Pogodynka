@@ -12,4 +12,6 @@ public interface TemperatureService {
     void addTemperature(BigDecimal temperature, DateTime whenMeasured);
 
     List<TemperatureMeasurement> getTemperatures();
+
+    void addTemperature(TemperatureMeasurement temperature);
 }

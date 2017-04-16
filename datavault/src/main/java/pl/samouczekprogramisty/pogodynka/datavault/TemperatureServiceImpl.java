@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.samouczekprogramisty.pogodynka.datavault.model.TemperatureMeasurement;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,6 +20,11 @@ public class TemperatureServiceImpl implements TemperatureService {
 
     @Override
     public List<TemperatureMeasurement> getTemperatures() {
-        return Collections.EMPTY_LIST;
+        return Arrays.asList(new TemperatureMeasurement(new BigDecimal(123), DateTime.now()));
+    }
+
+    @Override
+    public void addTemperature(TemperatureMeasurement temperature) {
+
     }
 }
