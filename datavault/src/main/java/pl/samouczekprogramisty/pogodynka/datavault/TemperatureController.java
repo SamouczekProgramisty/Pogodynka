@@ -4,6 +4,7 @@ package pl.samouczekprogramisty.pogodynka.datavault;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.samouczekprogramisty.pogodynka.datavault.model.TemperatureMeasurement;
 
+import javax.validation.Valid;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/temperatures")
@@ -28,18 +32,27 @@ public class TemperatureController {
 
     private final TemperatureService temperatureService;
 
+    private final MessageSource messageSource;
+
     @Autowired
-    public TemperatureController(TemperatureService temperatureService) {
+    public TemperatureController(TemperatureService temperatureService, MessageSource messageSource) {
+        this.messageSource = messageSource;
         this.temperatureService = temperatureService;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<String> addTemperature(@RequestBody TemperatureMeasurement temperature, Errors errors) {
-        LOG.debug("Adding new temperature.");
+    @ResponseBody
+    public ResponseEntity addTemperature(@Valid @RequestBody TemperatureMeasurement temperature, Errors errors) {
+        if (errors.hasErrors()) {
+            List<String> errorMessages = errors.getAllErrors().stream()
+                    .map(e -> messageSource.getMessage(e.getCode(), e.getArguments(), null))
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
+        }
 
         temperatureService.addTemperature(temperature);
 
-        return new ResponseEntity<String>("Temperature added", HttpStatus.CREATED);
+        return new ResponseEntity<>(Collections.singletonMap("result", "Temperature added"), HttpStatus.CREATED);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

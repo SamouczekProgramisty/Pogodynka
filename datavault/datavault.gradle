@@ -3,5 +3,6 @@ apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.p
 
 dependencies {
     compile group: 'org.springframework', name: 'spring-webmvc', version: '4.3.7.RELEASE'
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.4.1.Final'
     providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
 }

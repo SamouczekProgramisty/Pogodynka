@@ -3,9 +3,12 @@ package pl.samouczekprogramisty.pogodynka.datavault.configuration;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.joda.time.DateTime;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -28,5 +31,13 @@ public class WebAppConfiguration extends WebMvcConfigurerAdapter {
     public Gson getGson() {
         return new GsonBuilder()
                 .registerTypeAdapter(DateTime.class, new CustomDateTimeAdapter()).create();
+    }
+
+    @Bean
+    @Primary
+    public MessageSource getMessageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("messages");
+        return messageSource;
     }
 }

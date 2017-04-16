@@ -3,6 +3,7 @@ package pl.samouczekprogramisty.pogodynka.datavault.model;
 
 import org.joda.time.DateTime;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class TemperatureMeasurement {
@@ -14,10 +15,12 @@ public class TemperatureMeasurement {
         this.whenMeasured = whenMeasured;
     }
 
+    @NotNull
     public BigDecimal getTemperature() {
         return temperature;
     }
 
+    @NotNull
     public DateTime getWhenMeasured() {
         return whenMeasured;
     }
