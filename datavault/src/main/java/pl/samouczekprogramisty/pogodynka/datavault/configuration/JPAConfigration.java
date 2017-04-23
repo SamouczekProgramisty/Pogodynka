@@ -32,10 +32,10 @@ public class JPAConfigration {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean endityManager = new LocalContainerEntityManagerFactoryBean();
-        endityManager.setDataSource(getDataSource());
-        endityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        endityManager.setPackagesToScan("pl.samouczekprogramisty.pogodynka.datavault.model");
+        LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
+        entityManager.setDataSource(getDataSource());
+        entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        entityManager.setPackagesToScan("pl.samouczekprogramisty.pogodynka.datavault.model");
 
         Properties jpaProperties = new Properties();
         jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
@@ -44,9 +44,9 @@ public class JPAConfigration {
         jpaProperties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
         jpaProperties.setProperty("jadira.usertype.autoRegisterUserTypes", "true");
 
-        endityManager.setJpaProperties(jpaProperties);
+        entityManager.setJpaProperties(jpaProperties);
 
-        return endityManager;
+        return entityManager;
     }
 
     @Bean
