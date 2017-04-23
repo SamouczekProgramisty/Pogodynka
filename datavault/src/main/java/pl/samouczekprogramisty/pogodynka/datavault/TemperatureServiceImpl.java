@@ -1,30 +1,33 @@
 package pl.samouczekprogramisty.pogodynka.datavault;
 
 
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 import pl.samouczekprogramisty.pogodynka.datavault.model.TemperatureMeasurement;
+import pl.samouczekprogramisty.pogodynka.datavault.model.TemperatureMeasurementDAO;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class TemperatureServiceImpl implements TemperatureService {
 
-    @Override
-    public void addTemperature(BigDecimal temperature, DateTime whenMeasured) {
+    private final TemperatureMeasurementDAO temperatureDAO;
 
+    public TemperatureServiceImpl(TemperatureMeasurementDAO temperatureDAO) {
+        this.temperatureDAO = temperatureDAO;
+    }
+
+    @Override
+    public void addTemperature(TemperatureMeasurement temperatureMeasurement) {
+        temperatureDAO.save(temperatureMeasurement);
     }
 
     @Override
     public List<TemperatureMeasurement> getTemperatures() {
-        return Arrays.asList(new TemperatureMeasurement(new BigDecimal(123), DateTime.now()));
+        return StreamSupport
+                .stream(temperatureDAO.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
-    @Override
-    public void addTemperature(TemperatureMeasurement temperature) {
-
-    }
 }
