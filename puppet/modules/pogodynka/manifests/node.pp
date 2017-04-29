@@ -1,8 +1,4 @@
 class pogodynka::node {
-  notify {
-    "it works":
-  }
-
   java::oracle {
     'jdk8':
       ensure  => 'present',
