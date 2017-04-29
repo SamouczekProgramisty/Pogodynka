@@ -2,6 +2,13 @@ class pogodynka::node {
   notify {
     "it works":
   }
+
+  java::oracle {
+    'jdk8':
+      ensure  => 'present',
+      version => '6',
+      java_se => 'jdk';
+  }
   
   tomcat::install {
     '/opt/tomcat8.5':
