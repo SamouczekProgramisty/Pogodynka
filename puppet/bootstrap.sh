@@ -7,4 +7,5 @@ apt-get install puppet libssl-dev git -y
 
 git clone https://github.com/SamouczekProgramisty/Pogodynka.git $CONFIGURATION_DIR
 
-puppet apply --modulepath=$CONFIGURATION_DIR/puppet -e "include pogodynka::node"
+cd $CONFIGURATION_DIR/puppet
+puppet apply --modulepath=$CONFIGURATION_DIR/puppet/modules/ manifests/site.pp
