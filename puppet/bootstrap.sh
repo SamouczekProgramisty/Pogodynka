@@ -7,7 +7,7 @@
 CONFIGURATION_DIR=/opt/configuration/pogodynka
 
 apt-get update
-apt-get install puppet libssl-dev git -y
+apt-get install puppet libssl-dev git vim -y
 
 git clone https://github.com/SamouczekProgramisty/Pogodynka.git $CONFIGURATION_DIR
 cd $CONFIGURATION_DIR
