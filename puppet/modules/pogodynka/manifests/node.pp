@@ -7,7 +7,7 @@ class pogodynka::node {
 
   Firewall {
     before  => Class['pogodynka::firewall::post'],
-    require => Class['pogodynka::firewall::pre'];
+    require => Class['pogodynka::firewall::pre']
   }
   
   package {
