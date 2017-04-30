@@ -1,7 +1,7 @@
 class pogodynka::node {
   include apt
   include pogodynka::java
-  include firewall 
+  include firewall
   include pogodynka::firewall::pre
   include pogodynka::firewall::post
 
@@ -9,7 +9,17 @@ class pogodynka::node {
     before  => Class['pogodynka::firewall::post'],
     require => Class['pogodynka::firewall::pre']
   }
-  
+
+  firewall {
+    '099 forward port 80 to 8080':
+      table       => 'nat',
+      chain       => 'PREROUTING',
+      proto       => 'tcp',
+      dport       => '80',
+      jump        => 'REDIRECT',
+      toports     => '8080'
+  }
+
   package {
     'ntp':
       ensure => 'latest';
@@ -29,11 +39,11 @@ class pogodynka::node {
       catalina_base => $catalina_base;
   }
 
-  tomcat::config::server {
-    'tomcat8.5-production':
-      catalina_base => $catalina_base,
-      port => '8080';
-  }
+  # tomcat::config::server {
+  #   'tomcat8.5-production':
+  #     catalina_base => $catalina_base,
+  #     port => '8080';
+  # }
 
   # tomcat::config::server::connector {
   #   'tomcat8.5-production':
