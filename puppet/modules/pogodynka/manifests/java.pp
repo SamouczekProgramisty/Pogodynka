@@ -8,8 +8,8 @@ class pogodynka::java {
       content => "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main\ndeb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main";
 
     'java-apt-key':
-      path    => '/etc/apt/trusted.gpg.d/webupd8.gpg',
-      content => 'puppet://modules/pogodynka/webupd8.gpg';
+      path   => '/etc/apt/trusted.gpg.d/webupd8.gpg',
+      source => 'puppet://modules/pogodynka/webupd8.gpg';
 
     $responsefile:
       ensure  => 'present',
