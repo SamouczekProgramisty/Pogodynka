@@ -9,7 +9,7 @@ class pogodynka::java {
 
     'java-apt-key':
       path   => '/etc/apt/trusted.gpg.d/webupd8.gpg',
-      source => 'puppet://modules/pogodynka/webupd8.gpg';
+      source => 'puppet:///modules/pogodynka/webupd8.gpg';
 
     $responsefile:
       ensure  => 'present',

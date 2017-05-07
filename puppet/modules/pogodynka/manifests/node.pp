@@ -55,4 +55,12 @@ class pogodynka::node {
   #     },
   #     connector_ensure => 'present';
   # }
+
+	include 'postgresql::server'
+
+	postgresql::server::db {
+		'pogodynka_db':
+			user     => 'pogodynka',
+			password => postgresql_password('pogodynka', hiera('password_postgresql_pogodynka')),
+	}
 }
