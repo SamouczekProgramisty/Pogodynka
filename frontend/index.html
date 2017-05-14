@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Pogodynka, serwis prezentujący temperaturę na żywo :). Kod źródłowy dostępny na https://github.com/SamouczekProgramisty/Pogodynka">
+    <meta name="author" content="Marcin Pietraszek">
+
+    <title>Pogodynka</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="css/main.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Pogodynka</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Temperatura <span class="sr-only">(current)</span></a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <div class="row placeholders">
+            <div id="temperature-chart"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script>
+      Highcharts.chart('temperature-chart', {
+          title: {
+              text: 'Wykres temperatury'
+          },
+          subtitle: {
+              text: 'Źródło: pogodynka.pietraszek.pl'
+          },
+          yAxis: {
+              title: {
+                  text: 'Temperatura'
+              }
+          },
+          plotOptions: {
+              series: {
+                  pointStart: 2010
+              }
+          },
+          series: [{
+              name: 'Temperatura',
+              data: [5.12, 7.12, -3, 0.12, 3, 5, 5, 3]
+          }]
+      });
+    </script>
+  </body>
+</html>
