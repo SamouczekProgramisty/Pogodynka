@@ -5,6 +5,10 @@ class pogodynka::firewall {
     before  => Class['pogodynka::firewall::post'],
     require => Class['pogodynka::firewall::pre']
   }
+
+  class {
+    ['pogodynka::firewall::pre', 'pogodynka::firewall::post']:
+  }
 }
 
 class pogodynka::firewall::pre {
