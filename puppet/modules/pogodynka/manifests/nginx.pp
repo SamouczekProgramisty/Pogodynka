@@ -1,9 +1,10 @@
 class pogodynka::nginx {
-  include nginx
-
-  nginx::resource::server {
-    'pogodynka.kolekcja.p5.tiktalik.io':
-       listen_port => 80,
-       proxy       => 'http://localhost:8080'
+  class {
+    '::nginx':
+  }->
+  file {
+    '/etc/nginx/sites-enables/pogodynka.pietraszek.pl':
+      source => 'puppet:///modules/pogodynka/nginx.conf',
+      notify => Service['nginx'];
   }
 }

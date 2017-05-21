@@ -5,11 +5,10 @@ class pogodynka::database {
   } ->
   class {
     'postgresql::server':
-      listen_address    => 'localhost',
+      listen_addresses  => 'localhost',
       locale            => 'pl_PL.UTF-8',
       log_line_prefix   => '%t [%p-%l] %q%u@%d ',
       postgres_password => hiera('password_postgresql_postgres')
-
   }
 
   postgresql::server::db {
