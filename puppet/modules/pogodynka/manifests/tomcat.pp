@@ -1,7 +1,9 @@
-class pogodynka::tomcat {
+class pogodynka::tomcat (
+  $code_dir = $pogodynka::params::code_dir
+  $datavault_version = $pogodynka::params::datavault_version
+) {
 
-  $code_dir = "/opt/configuration/pogodynka"
-  $war_file = "${code_dir}/datavault/build/libs/datavault-1.0-SNAPSHOT.war"
+  $war_file = "${code_dir}/datavault/build/libs/datavault-${datavault_version}.war"
   $catalina_home = '/opt/tomcat8.5'
 
   tomcat::install {
