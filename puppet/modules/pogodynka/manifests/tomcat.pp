@@ -13,20 +13,20 @@ class pogodynka::tomcat {
       catalina_base => $catalina_base;
   }
 
-  # tomcat::config::server {
-  #   'tomcat8.5-production':
-  #     catalina_base => $catalina_base,
-  #     port => '8080';
-  # }
+  $code_dir = "/opt/configuration/pogodynka";
+  $war_file = "${code_dir}/datavault/build/libs/datavault-1.0-SNAPSHOT.war";
 
-  # tomcat::config::server::connector {
-  #   'tomcat8.5-production':
-  #     catalina_base         => $catalina_base,
-  #     port                  => '80',
-  #     protocol              => 'HTTP/1.1',
-  #     additional_attributes => {
-  #       'redirectPort' => '443'
-  #     },
-  #     connector_ensure => 'present';
-  # }
+  exec {
+    'build_war':
+      command => "${code_dir}/gradlew -b ${code_dir}/datavault/datavault.gradle war",
+      creates => $war_file;
+  }
+
+  file {
+    "${catalina_base}/webapps/datavault.war":
+      source   => "file://${war_file}"
+      requires => [Exec['build_war'], Tomcat::Instance['tomcat8.5-production']];
+      group    => 'tomcat',
+      owner    => 'tomcat';
+  }
 }

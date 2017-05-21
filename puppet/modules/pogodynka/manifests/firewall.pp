@@ -5,16 +5,6 @@ class pogodynka::firewall {
     before  => Class['pogodynka::firewall::post'],
     require => Class['pogodynka::firewall::pre']
   }
-
-  firewall {
-    '099 forward port 80 to 8080':
-      table       => 'nat',
-      chain       => 'PREROUTING',
-      proto       => 'tcp',
-      dport       => '80',
-      jump        => 'REDIRECT',
-      toports     => '8080'
-  }
 }
 
 class pogodynka::firewall::pre {
