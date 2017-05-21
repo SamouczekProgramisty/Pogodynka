@@ -1,6 +1,6 @@
 class pogodynka::nginx(
-  $code_dir = $pogodynka::params::code_dir
-) {
+  $code_dir = $::pogodynka::params::code_dir
+) inherits ::pogodynka::params {
   class {
     '::nginx':
   } ->

@@ -1,7 +1,7 @@
 class pogodynka::tomcat (
-  $code_dir = $pogodynka::params::code_dir
-  $datavault_version = $pogodynka::params::datavault_version
-) {
+  $code_dir = $::pogodynka::params::code_dir,
+  $datavault_version = $::pogodynka::params::datavault_version
+) inherits ::pogodynka::params {
 
   $war_file = "${code_dir}/datavault/build/libs/datavault-${datavault_version}.war"
   $catalina_home = '/opt/tomcat8.5'
