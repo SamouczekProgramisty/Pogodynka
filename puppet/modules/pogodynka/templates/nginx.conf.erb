@@ -3,7 +3,7 @@ server {
   server_name           pogodynka.pietraszek.pl;
 
   location / {
-    root <%= code_dir %>/frontend;
+    root <%= @code_dir %>/frontend;
     try_files $uri $uri/ @apacheapp;
 
     expires max;
