@@ -17,6 +17,12 @@ class pogodynka::tomcat (
       catalina_base => $catalina_home;
   }
 
+  tomcat::config::properties::property {
+    'POGODYNKA_USER_PASSWORD':
+      value         => hiera('password_postgresql_pogodynka_user'),
+      catalina_base => $catalina_home;
+  }
+
   exec {
     'build_war':
       command => "${code_dir}/gradlew -b ${code_dir}/datavault/datavault.gradle war",
