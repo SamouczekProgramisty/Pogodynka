@@ -22,6 +22,10 @@ class pogodynka::tomcat (
     'POGODYNKA_USER_PASSWORD':
       config_file => "${catalina_base}/bin/setenv.sh",
       value       => hiera('password_postgresql_pogodynka_user');
+
+    'POGODYNKA_AUTHORISATION_TOKEN':
+      config_file => "${catalina_base}/bin/setenv.sh",
+      value       => hiera('pogodynka_authorisation_token');
   }
 
   exec {

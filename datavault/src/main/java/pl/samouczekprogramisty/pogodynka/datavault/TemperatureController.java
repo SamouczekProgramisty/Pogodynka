@@ -13,6 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.samouczekprogramisty.pogodynka.datavault.model.TemperatureMeasurement;
@@ -34,6 +35,8 @@ public class TemperatureController {
 
     private final MessageSource messageSource;
 
+    private final String authorisationToken = System.getenv("POGODYNKA_AUTHORISATION_TOKEN");
+
     @Autowired
     public TemperatureController(TemperatureService temperatureService, MessageSource messageSource) {
         this.messageSource = messageSource;
@@ -42,7 +45,11 @@ public class TemperatureController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
-    public ResponseEntity addTemperature(@Valid @RequestBody TemperatureMeasurement temperature, Errors errors) {
+    public ResponseEntity addTemperature(@Valid @RequestBody TemperatureMeasurement temperature, Errors errors, @RequestHeader("UserAuthorisation") String authorisationToken) {
+        if (!this.authorisationToken.equals(authorisationToken)) {
+            return new ResponseEntity<>(Collections.singletonMap("errors", "Missing or invalid UserAuthorisation header!"), HttpStatus.FORBIDDEN);
+        }
+
         if (errors.hasErrors()) {
             List<String> errorMessages = errors.getAllErrors().stream()
                     .map(e -> messageSource.getMessage(e.getCode(), e.getArguments(), null))
