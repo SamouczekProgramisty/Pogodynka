@@ -15,6 +15,7 @@ class pogodynka::node_thermometer(
   }
 
   $jar_file = "${code_dir}/thermometer/build/libs/thermometer${thermometer_version}.jar"
+  $authorisation_token = hiera('pogodynka_authorisation_token')
 
   exec {
     'build_jar':
@@ -24,16 +25,16 @@ class pogodynka::node_thermometer(
 
   cron {
     'measure_temperature':
-      command => "java -jar ${jar_file} ${hiera('pogodynka_authorisation_token')} ${datavault_endpoint} && curl -fsS --retry 3 ${healthcheck_endpoint}",
+      command => "java -jar ${jar_file} ${authorisation_token} ${datavault_endpoint} && curl -fsS --retry 3 ${healthcheck_endpoint}",
       minute  => '*/10',
       user    => 'pogodynka',
-      require => [User['pogodynka'], Exec['build_jar']]
+      require => [User['pogodynka'], Exec['build_jar']];
 
     'remove old logs':
-      command => "find /var/log/pogodynka/*.log -mtime +7 -exec rm {} \;"
+      command => 'find /var/log/pogodynka/*.log -mtime +7 -exec rm {} \;',
       hour    => '0',
       user    => 'pogodynka',
       minute  => '1',
-      require => User['pogodynka']
+      require => User['pogodynka'];
   }
 }
