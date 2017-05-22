@@ -14,7 +14,7 @@ class pogodynka::database {
   postgresql::server::db {
     'pogodynka_db':
       user     => 'pogodynka_admin',
-      password => postgresql_password('pogodynka_admin', hiera('password_postgresql_pogodynka_admin')),
+      password => hiera('password_postgresql_pogodynka_admin');
   }
 
   postgresql::server::role {
@@ -27,5 +27,14 @@ class pogodynka::database {
       privilege => 'CONNECT',
       db        => 'pogodynka_db',
       role      => 'pogodynka_user';
+  }
+
+  postgresql::server::pg_hba_rule {
+    'allow pogodynka_user to pogodynka_db with password from localhost':
+        order       => '000',
+        type        => 'local',
+        database    => 'pogodynka_db',
+        user        => 'pogodynka_user',
+        auth_method => 'md5';
   }
 }

@@ -34,7 +34,7 @@ public class JPAConfigration {
     public DataSource getProductionDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5342/pogodynka_db");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/pogodynka_db");
         dataSource.setUsername("pogodynka_user");
         dataSource.setPassword(System.getenv("POGODYNKA_USER_PASSWORD"));
         return dataSource;

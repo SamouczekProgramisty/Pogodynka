@@ -5,6 +5,7 @@ class pogodynka::tomcat (
 
   $war_file = "${code_dir}/datavault/build/libs/datavault-${datavault_version}.war"
   $catalina_home = '/opt/tomcat8.5'
+  $catalina_base = "${catalina_home}/production"
 
   tomcat::install {
     '/opt/tomcat8.5':
@@ -14,13 +15,13 @@ class pogodynka::tomcat (
   tomcat::instance {
     'tomcat8.5-production':
       catalina_home => $catalina_home,
-      catalina_base => $catalina_home;
+      catalina_base => $catalina_base;
   }
 
   tomcat::config::properties::property {
     'POGODYNKA_USER_PASSWORD':
       value         => hiera('password_postgresql_pogodynka_user'),
-      catalina_base => $catalina_home;
+      catalina_base => $catalina_base;
   }
 
   exec {
@@ -29,11 +30,10 @@ class pogodynka::tomcat (
       creates => $war_file;
   }
 
-  file {
-    "${catalina_home}/webapps/datavault.war":
-      source  => "file://${war_file}",
-      require => [Exec['build_war'], Tomcat::Instance['tomcat8.5-production']],
-      group   => 'tomcat',
-      owner   => 'tomcat';
+  tomcat::war {
+    'datavault.war':
+      war_source    => $war_file,
+      catalina_base => $catalina_base,
+      require       => Exec['build_war'];
   }
 }
