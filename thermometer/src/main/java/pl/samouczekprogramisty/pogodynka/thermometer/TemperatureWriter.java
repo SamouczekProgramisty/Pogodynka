@@ -1,14 +1,10 @@
 package pl.samouczekprogramisty.pogodynka.thermometer;
 
 
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
@@ -26,13 +22,18 @@ public class TemperatureWriter implements Closeable {
 
     private static final Logger LOG = LoggerFactory.getLogger(TemperatureWriter.class);
 
+    private static final String HEADER_NAME = "UserAuthorisation";
+
     private final CloseableHttpClient httpClient;
 
     private final URI dataSink;
 
-    public TemperatureWriter(CloseableHttpClient httpClient, URI dataSink) {
+    private final String authorisationHeader;
+
+    public TemperatureWriter(CloseableHttpClient httpClient, URI dataSink, String authorisationHeader) {
         this.httpClient = httpClient;
         this.dataSink = dataSink;
+        this.authorisationHeader = authorisationHeader;
     }
 
     public void addTemperature(TemperaturePoint temperaturePoint) throws IOException {
@@ -42,6 +43,7 @@ public class TemperatureWriter implements Closeable {
 
     private void sendMeasurement(String jsonMeasurement) throws IOException {
         HttpPost request = new HttpPost(dataSink);
+        request.setHeader(HEADER_NAME, authorisationHeader);
         request.setEntity(new StringEntity(jsonMeasurement, ContentType.APPLICATION_JSON));
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             int statusCode = response.getStatusLine().getStatusCode();
@@ -53,28 +55,20 @@ public class TemperatureWriter implements Closeable {
 
     public static void main(String... args) {
         Arguments arguments = new Arguments(args);
-        CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-        credentialsProvider.setCredentials(
-                AuthScope.ANY,
-                new UsernamePasswordCredentials(arguments.getUsername(), arguments.getPassword()));
-
-        LOG.info("Logging as {}", arguments.getUsername());
-
         try {
             TemperaturePoint currentTemperature = getCurrentTemperature(arguments);
-            sendCurrentTemperature(arguments, credentialsProvider, currentTemperature);
+            sendCurrentTemperature(arguments, currentTemperature);
         } catch (IOException exception) {
             LOG.error("Oups, there was a problem during reading/sending temperature!", exception);
             System.exit(1);
         }
     }
 
-    private static void sendCurrentTemperature(Arguments arguments, CredentialsProvider credentialsProvider, TemperaturePoint currentTemperature) throws IOException {
+    private static void sendCurrentTemperature(Arguments arguments, TemperaturePoint currentTemperature) throws IOException {
         HttpClientBuilder httpClientBuilder = HttpClients
-                .custom()
-                .setDefaultCredentialsProvider(credentialsProvider);
+                .custom();
 
-        try (TemperatureWriter temperatureWriter = new TemperatureWriter(httpClientBuilder.build(), arguments.getDataSink())) {
+        try (TemperatureWriter temperatureWriter = new TemperatureWriter(httpClientBuilder.build(), arguments.getDataSink(), arguments.getAuthorisationHeader())) {
             LOG.info("Current temperature {}", currentTemperature);
             temperatureWriter.addTemperature(currentTemperature);
         }

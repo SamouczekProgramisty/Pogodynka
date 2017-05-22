@@ -24,7 +24,7 @@ public class TemperatureWriterTest {
 
     @Test
     public void shouldSendHttpRequest() throws IOException {
-        TemperatureWriter temperatureWriter = new TemperatureWriter(httpClient, null);
+        TemperatureWriter temperatureWriter = new TemperatureWriter(httpClient, null, null);
         CloseableHttpResponse mockResponse = getMockResponse(200);
         when(httpClient.execute(any())).thenReturn(mockResponse);
 
@@ -33,7 +33,7 @@ public class TemperatureWriterTest {
 
     @Test(expected = IllegalResponseCode.class)
     public void shouldThrowExceptionOnWrongStatusCode() throws IOException {
-        TemperatureWriter temperatureWriter = new TemperatureWriter(httpClient, null);
+        TemperatureWriter temperatureWriter = new TemperatureWriter(httpClient, null, null);
         CloseableHttpResponse mockResponse = getMockResponse(404);
         when(httpClient.execute(any())).thenReturn(mockResponse);
 

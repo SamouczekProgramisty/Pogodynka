@@ -15,7 +15,7 @@ public class ArgumentsTest {
 
     @Before
     public void setUp() {
-        validAruments = new Arguments("username", "password", "http://www.samouczekprogramisty.pl", "/some/path");
+        validAruments = new Arguments("token", "http://www.samouczekprogramisty.pl", "/some/path");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -25,17 +25,12 @@ public class ArgumentsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldThrowExceptionOnTooManyArguments() {
-        new Arguments("1", "2", "3", "4", "5");
+        new Arguments("1", "2", "3", "4");
     }
 
     @Test
-    public void shouldParseUsername() {
-        assertThat(validAruments.getUsername(), is("username"));
-    }
-
-    @Test
-    public void shouldParsePassword() {
-        assertThat(validAruments.getPassword(), is("password"));
+    public void shouldParseAuthorisationToken() {
+        assertThat(validAruments.getAuthorisationHeader(), is("token"));
     }
 
     @Test
@@ -45,6 +40,6 @@ public class ArgumentsTest {
 
     @Test(expected = RuntimeException.class)
     public void shouldTrowExcpeptionOnInvalidURL() {
-        new Arguments("username", "password", "http://some_illegal_uri.pl?s=^", "/some/path");
+        new Arguments("token", "http://some_illegal_uri.pl?s=^", "/some/path");
     }
 }

@@ -13,38 +13,31 @@ public class Arguments {
 
     private URI dataSink;
 
-    private String username;
-
-    private String password;
+    private String authorisationHeader;
 
     private String inputFilePath;
 
     public Arguments(String... args) {
-        if (args.length != 4) {
+        if (args.length != 3) {
             LOG.error("There is something iffy with arguments ({})!", args.length);
             throw new IllegalArgumentException("You need to provide <username> <password> <data sink url> arguments!");
         }
-        username = args[0];
-        password = args[1];
+        authorisationHeader = args[0];
         try {
-            dataSink = new URI(args[2]);
+            dataSink = new URI(args[1]);
         } catch (URISyntaxException exception) {
-            LOG.error("There is something iffy with URL ({})!", args[3]);
+            LOG.error("There is something iffy with URL ({})!", args[1]);
             throw new RuntimeException(exception);
         }
-        inputFilePath = args[3];
+        inputFilePath = args[2];
     }
 
     public URI getDataSink() {
         return dataSink;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
+    public String getAuthorisationHeader() {
+        return authorisationHeader;
     }
 
     public String getInputFilePath() {
