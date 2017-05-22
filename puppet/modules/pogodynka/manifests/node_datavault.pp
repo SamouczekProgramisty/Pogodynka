@@ -1,6 +1,7 @@
-class pogodynka::node {
+class pogodynka::node_datavault {
   include apt
 
+  include pogodynka::misc
   include pogodynka::java
   include pogodynka::database
   include pogodynka::firewall
