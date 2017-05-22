@@ -1,6 +1,7 @@
 package pl.samouczekprogramisty.pogodynka.thermometer;
 
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -17,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.nio.charset.Charset;
 
 public class TemperatureWriter implements Closeable {
 
@@ -48,7 +50,10 @@ public class TemperatureWriter implements Closeable {
         try (CloseableHttpResponse response = httpClient.execute(request)) {
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode != 200) {
-                throw new IllegalResponseCode(statusCode);
+                throw new IllegalResponseCode(
+                        statusCode,
+                        IOUtils.toString(response.getEntity().getContent(), Charset.forName("UTF-8"))
+                );
             }
         }
     }
