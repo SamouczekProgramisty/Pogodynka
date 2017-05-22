@@ -18,10 +18,10 @@ class pogodynka::tomcat (
       catalina_base => $catalina_base;
   }
 
-  tomcat::config::properties::property {
+  tomcat::setenv::entry {
     'POGODYNKA_USER_PASSWORD':
-      value         => hiera('password_postgresql_pogodynka_user'),
-      catalina_base => $catalina_base;
+      config_file => "${catalina_base}/bin/setenv.sh",
+      value       => hiera('password_postgresql_pogodynka_user');
   }
 
   exec {
