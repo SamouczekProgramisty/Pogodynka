@@ -20,7 +20,7 @@ public class Arguments {
     public Arguments(String... args) {
         if (args.length != 3) {
             LOG.error("There is something iffy with arguments ({})!", args.length);
-            throw new IllegalArgumentException("You need to provide <username> <password> <data sink url> arguments!");
+            throw new IllegalArgumentException("You need to provide <authorisation header> <data sink url> <input file path> arguments!");
         }
         authorisationHeader = args[0];
         try {
