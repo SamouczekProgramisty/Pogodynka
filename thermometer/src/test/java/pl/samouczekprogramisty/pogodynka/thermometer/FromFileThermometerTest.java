@@ -19,6 +19,6 @@ public class FromFileThermometerTest {
         Thermometer thermometer = new FromFileThermometer(inputFile);
         TemperaturePoint temperaturePoint = thermometer.measure();
 
-        assertThat(temperaturePoint.getMeasurement(), is(new BigDecimal("22.125")));
+        assertThat(temperaturePoint.getTemperature(), is(new BigDecimal("22.125")));
     }
 }

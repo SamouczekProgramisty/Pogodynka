@@ -10,9 +10,9 @@ import org.joda.time.format.ISODateTimeFormat;
 
 public abstract class MeasurementPoint<T> {
 
-    protected final DateTime measurementTime;
+    protected final DateTime whenMeasured;
 
-    protected final T measurement;
+    protected final T temperature;
 
     protected static final Gson GSON = new GsonBuilder()
         .registerTypeAdapter(
@@ -24,17 +24,17 @@ public abstract class MeasurementPoint<T> {
         this(measurment, DateTime.now(DateTimeZone.UTC));
     }
 
-    public MeasurementPoint(T measurment, DateTime measurementTime) {
-        this.measurement = measurment;
-        this.measurementTime = measurementTime;
+    public MeasurementPoint(T measurment, DateTime whenMeasured) {
+        this.temperature = measurment;
+        this.whenMeasured = whenMeasured;
     }
 
-    public DateTime getMeasurementTime() {
-        return measurementTime;
+    public DateTime getWhenMeasured() {
+        return whenMeasured;
     }
 
-    public T getMeasurement() {
-        return measurement;
+    public T getTemperature() {
+        return temperature;
     }
 
     public String toJson() {
@@ -44,8 +44,8 @@ public abstract class MeasurementPoint<T> {
     @Override
     public String toString() {
         return "MeasurementPoint{" +
-                "measurementTime=" + measurementTime +
-                ", measurement=" + measurement +
+                "whenMeasured=" + whenMeasured +
+                ", temperature=" + temperature +
                 '}';
     }
 }

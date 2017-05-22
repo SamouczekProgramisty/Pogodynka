@@ -11,7 +11,7 @@ public class DummyThermometer implements Thermometer {
     private static final Random randomizer = new Random();
 
     /**
-     * Just a dummy implementation that returns some measurement.
+     * Just a dummy implementation that returns some temperature.
      *
      * @return
      */
