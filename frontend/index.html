@@ -49,69 +49,73 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
     <script>
-      $(function() {
-		var temperatures = [{"id":1,"temperature":-22.63,"whenMeasured":"2017-05-22T17:17:20.299-04:00"},{"id":2,"temperature":-22.63,"whenMeasured":"2017-05-22T17:20:04.196-04:00"},{"id":3,"temperature":-22.56,"whenMeasured":"2017-05-22T17:30:04.261-04:00"},{"id":4,"temperature":-22.56,"whenMeasured":"2017-05-22T17:40:04.419-04:00"},{"id":5,"temperature":-22.50,"whenMeasured":"2017-05-22T17:50:04.187-04:00"},{"id":6,"temperature":-22.44,"whenMeasured":"2017-05-22T18:00:04.060-04:00"},{"id":7,"temperature":-22.31,"whenMeasured":"2017-05-22T18:10:04.710-04:00"},{"id":8,"temperature":-22.31,"whenMeasured":"2017-05-22T18:20:04.553-04:00"},{"id":9,"temperature":-22.25,"whenMeasured":"2017-05-22T18:30:04.337-04:00"},{"id":10,"temperature":-22.25,"whenMeasured":"2017-05-22T18:40:04.089-04:00"},{"id":11,"temperature":-22.19,"whenMeasured":"2017-05-22T18:50:04.842-04:00"},{"id":12,"temperature":-22.25,"whenMeasured":"2017-05-22T19:00:04.322-04:00"},{"id":13,"temperature":22.25,"whenMeasured":"2017-05-22T19:10:04.188-04:00"},{"id":14,"temperature":22.25,"whenMeasured":"2017-05-22T19:20:04.065-04:00"},{"id":15,"temperature":22.13,"whenMeasured":"2017-05-22T19:30:04.257-04:00"},{"id":16,"temperature":22.19,"whenMeasured":"2017-05-22T19:40:04.163-04:00"},{"id":17,"temperature":22.19,"whenMeasured":"2017-05-22T19:50:04.119-04:00"},{"id":18,"temperature":22.19,"whenMeasured":"2017-05-22T20:00:03.947-04:00"},{"id":19,"temperature":22.19,"whenMeasured":"2017-05-22T20:10:04.753-04:00"},{"id":20,"temperature":22.19,"whenMeasured":"2017-05-22T20:20:04.645-04:00"},{"id":21,"temperature":22.13,"whenMeasured":"2017-05-22T20:30:04.451-04:00"},{"id":22,"temperature":22.06,"whenMeasured":"2017-05-22T20:40:04.748-04:00"},{"id":23,"temperature":21.94,"whenMeasured":"2017-05-22T20:50:04.521-04:00"},{"id":24,"temperature":21.94,"whenMeasured":"2017-05-22T21:00:04.738-04:00"},{"id":25,"temperature":22.00,"whenMeasured":"2017-05-22T21:10:04.849-04:00"},{"id":26,"temperature":21.94,"whenMeasured":"2017-05-22T21:20:04.668-04:00"},{"id":27,"temperature":21.94,"whenMeasured":"2017-05-22T21:30:04.540-04:00"},{"id":28,"temperature":21.94,"whenMeasured":"2017-05-22T21:40:04.309-04:00"},{"id":29,"temperature":21.94,"whenMeasured":"2017-05-22T21:50:04.542-04:00"},{"id":30,"temperature":21.88,"whenMeasured":"2017-05-22T22:00:04.605-04:00"},{"id":31,"temperature":21.88,"whenMeasured":"2017-05-22T22:10:04.874-04:00"},{"id":32,"temperature":21.88,"whenMeasured":"2017-05-22T22:20:04.154-04:00"},{"id":33,"temperature":21.81,"whenMeasured":"2017-05-22T22:30:04.295-04:00"},{"id":34,"temperature":21.81,"whenMeasured":"2017-05-22T22:40:04.039-04:00"},{"id":35,"temperature":21.81,"whenMeasured":"2017-05-22T22:50:04.608-04:00"},{"id":36,"temperature":21.75,"whenMeasured":"2017-05-22T23:00:04.647-04:00"},{"id":37,"temperature":21.63,"whenMeasured":"2017-05-22T23:10:04.644-04:00"},{"id":38,"temperature":21.69,"whenMeasured":"2017-05-22T23:20:04.406-04:00"},{"id":39,"temperature":21.75,"whenMeasured":"2017-05-22T23:30:04.247-04:00"},{"id":40,"temperature":21.75,"whenMeasured":"2017-05-22T23:40:03.988-04:00"},{"id":41,"temperature":21.75,"whenMeasured":"2017-05-22T23:50:04.729-04:00"},{"id":42,"temperature":21.75,"whenMeasured":"2017-05-23T00:00:04.638-04:00"},{"id":43,"temperature":21.81,"whenMeasured":"2017-05-23T00:10:04.499-04:00"},{"id":44,"temperature":21.88,"whenMeasured":"2017-05-23T00:20:04.311-04:00"},{"id":45,"temperature":21.88,"whenMeasured":"2017-05-23T00:30:04.270-04:00"},{"id":46,"temperature":21.94,"whenMeasured":"2017-05-23T00:40:04.073-04:00"},{"id":47,"temperature":21.94,"whenMeasured":"2017-05-23T00:50:03.861-04:00"},{"id":48,"temperature":22.00,"whenMeasured":"2017-05-23T01:00:03.963-04:00"},{"id":49,"temperature":22.00,"whenMeasured":"2017-05-23T01:10:04.734-04:00"},{"id":50,"temperature":22.00,"whenMeasured":"2017-05-23T01:20:04.638-04:00"},{"id":51,"temperature":22.06,"whenMeasured":"2017-05-23T01:30:04.439-04:00"},{"id":52,"temperature":22.06,"whenMeasured":"2017-05-23T01:40:04.267-04:00"},{"id":53,"temperature":22.06,"whenMeasured":"2017-05-23T01:50:04.024-04:00"},{"id":54,"temperature":22.25,"whenMeasured":"2017-05-23T02:00:03.961-04:00"},{"id":55,"temperature":22.25,"whenMeasured":"2017-05-23T02:10:04.656-04:00"},{"id":56,"temperature":22.19,"whenMeasured":"2017-05-23T02:20:04.067-04:00"},{"id":57,"temperature":22.25,"whenMeasured":"2017-05-23T02:30:04.713-04:00"},{"id":58,"temperature":22.38,"whenMeasured":"2017-05-23T02:40:04.486-04:00"},{"id":59,"temperature":22.44,"whenMeasured":"2017-05-23T02:50:04.355-04:00"},{"id":60,"temperature":22.50,"whenMeasured":"2017-05-23T03:00:04.190-04:00"},{"id":61,"temperature":22.50,"whenMeasured":"2017-05-23T03:10:03.901-04:00"},{"id":62,"temperature":22.50,"whenMeasured":"2017-05-23T03:20:03.885-04:00"},{"id":63,"temperature":22.50,"whenMeasured":"2017-05-23T03:30:04.831-04:00"},{"id":64,"temperature":22.50,"whenMeasured":"2017-05-23T05:20:06.071-04:00"},{"id":65,"temperature":22.56,"whenMeasured":"2017-05-23T05:30:04.635-04:00"},{"id":66,"temperature":22.50,"whenMeasured":"2017-05-23T05:40:04.322-04:00"},{"id":67,"temperature":22.50,"whenMeasured":"2017-05-23T05:50:04.105-04:00"},{"id":68,"temperature":22.56,"whenMeasured":"2017-05-23T06:00:03.896-04:00"},{"id":69,"temperature":22.50,"whenMeasured":"2017-05-23T06:10:04.641-04:00"},{"id":70,"temperature":22.56,"whenMeasured":"2017-05-23T06:20:04.619-04:00"},{"id":71,"temperature":22.56,"whenMeasured":"2017-05-23T06:30:04.362-04:00"},{"id":72,"temperature":22.56,"whenMeasured":"2017-05-23T06:40:04.415-04:00"},{"id":73,"temperature":22.56,"whenMeasured":"2017-05-23T06:50:04.155-04:00"},{"id":74,"temperature":22.56,"whenMeasured":"2017-05-23T07:00:03.954-04:00"},{"id":75,"temperature":22.63,"whenMeasured":"2017-05-23T07:10:04.416-04:00"},{"id":76,"temperature":22.56,"whenMeasured":"2017-05-23T07:20:04.296-04:00"},{"id":77,"temperature":22.63,"whenMeasured":"2017-05-23T07:30:04.043-04:00"},{"id":78,"temperature":22.63,"whenMeasured":"2017-05-23T07:40:04.815-04:00"},{"id":79,"temperature":22.63,"whenMeasured":"2017-05-23T07:50:04.539-04:00"},{"id":80,"temperature":22.63,"whenMeasured":"2017-05-23T08:00:04.322-04:00"},{"id":81,"temperature":22.63,"whenMeasured":"2017-05-23T08:10:04.242-04:00"},{"id":82,"temperature":22.63,"whenMeasured":"2017-05-23T08:20:04.065-04:00"},{"id":83,"temperature":22.69,"whenMeasured":"2017-05-23T08:30:03.901-04:00"},{"id":84,"temperature":22.69,"whenMeasured":"2017-05-23T08:40:04.327-04:00"},{"id":85,"temperature":22.75,"whenMeasured":"2017-05-23T08:50:04.104-04:00"},{"id":86,"temperature":22.75,"whenMeasured":"2017-05-23T09:00:04.061-04:00"},{"id":87,"temperature":22.81,"whenMeasured":"2017-05-23T09:10:04.243-04:00"},{"id":88,"temperature":22.88,"whenMeasured":"2017-05-23T09:20:04.239-04:00"},{"id":89,"temperature":22.88,"whenMeasured":"2017-05-23T09:30:03.976-04:00"},{"id":90,"temperature":22.88,"whenMeasured":"2017-05-23T09:40:04.006-04:00"},{"id":91,"temperature":22.88,"whenMeasured":"2017-05-23T09:50:04.841-04:00"},{"id":92,"temperature":22.88,"whenMeasured":"2017-05-23T10:00:04.676-04:00"},{"id":93,"temperature":22.88,"whenMeasured":"2017-05-23T10:10:04.436-04:00"},{"id":94,"temperature":22.88,"whenMeasured":"2017-05-23T10:20:04.242-04:00"},{"id":95,"temperature":22.81,"whenMeasured":"2017-05-23T10:30:03.960-04:00"},{"id":96,"temperature":22.81,"whenMeasured":"2017-05-23T10:40:04.818-04:00"},{"id":97,"temperature":22.88,"whenMeasured":"2017-05-23T10:50:04.582-04:00"},{"id":98,"temperature":22.81,"whenMeasured":"2017-05-23T11:00:04.360-04:00"},{"id":99,"temperature":22.81,"whenMeasured":"2017-05-23T11:10:04.555-04:00"},{"id":100,"temperature":22.81,"whenMeasured":"2017-05-23T11:20:04.733-04:00"},{"id":101,"temperature":22.75,"whenMeasured":"2017-05-23T11:30:04.611-04:00"},{"id":102,"temperature":22.75,"whenMeasured":"2017-05-23T11:40:04.354-04:00"},{"id":103,"temperature":22.69,"whenMeasured":"2017-05-23T11:50:04.107-04:00"},{"id":104,"temperature":22.75,"whenMeasured":"2017-05-23T12:00:03.922-04:00"},{"id":105,"temperature":22.75,"whenMeasured":"2017-05-23T12:10:04.695-04:00"},{"id":106,"temperature":22.69,"whenMeasured":"2017-05-23T12:20:04.621-04:00"},{"id":107,"temperature":22.69,"whenMeasured":"2017-05-23T12:30:04.386-04:00"},{"id":108,"temperature":22.75,"whenMeasured":"2017-05-23T12:40:05.611-04:00"},{"id":109,"temperature":22.69,"whenMeasured":"2017-05-23T12:50:04.285-04:00"},{"id":110,"temperature":22.75,"whenMeasured":"2017-05-23T13:00:04.047-04:00"},{"id":111,"temperature":22.69,"whenMeasured":"2017-05-23T13:10:04.225-04:00"},{"id":112,"temperature":22.69,"whenMeasured":"2017-05-23T13:20:03.980-04:00"},{"id":113,"temperature":22.69,"whenMeasured":"2017-05-23T13:30:04.700-04:00"},{"id":114,"temperature":22.69,"whenMeasured":"2017-05-23T13:40:04.463-04:00"},{"id":115,"temperature":22.69,"whenMeasured":"2017-05-23T13:50:03.877-04:00"},{"id":116,"temperature":22.69,"whenMeasured":"2017-05-23T14:00:04.571-04:00"},{"id":117,"temperature":22.94,"whenMeasured":"2017-05-23T14:10:04.277-04:00"},{"id":118,"temperature":22.75,"whenMeasured":"2017-05-23T14:20:04.618-04:00"},{"id":119,"temperature":22.75,"whenMeasured":"2017-05-23T14:30:04.287-04:00"},{"id":120,"temperature":22.63,"whenMeasured":"2017-05-23T14:40:04.626-04:00"},{"id":121,"temperature":22.63,"whenMeasured":"2017-05-23T14:50:04.326-04:00"},{"id":122,"temperature":22.63,"whenMeasured":"2017-05-23T15:00:04.181-04:00"},{"id":123,"temperature":26.81,"whenMeasured":"2017-05-23T15:10:03.969-04:00"},{"id":124,"temperature":22.69,"whenMeasured":"2017-05-23T15:20:04.308-04:00"},{"id":125,"temperature":22.63,"whenMeasured":"2017-05-23T15:30:04.018-04:00"},{"id":126,"temperature":22.63,"whenMeasured":"2017-05-23T15:40:04.761-04:00"},{"id":127,"temperature":22.56,"whenMeasured":"2017-05-23T15:50:04.437-04:00"},{"id":128,"temperature":22.63,"whenMeasured":"2017-05-23T16:00:04.287-04:00"},{"id":129,"temperature":23.19,"whenMeasured":"2017-05-23T16:10:32.888-04:00"},{"id":130,"temperature":25.13,"whenMeasured":"2017-05-23T16:25:33.143-04:00"},{"id":131,"temperature":24.25,"whenMeasured":"2017-05-23T16:34:40.096-04:00"},{"id":132,"temperature":20.44,"whenMeasured":"2017-05-23T16:50:05.083-04:00"},{"id":133,"temperature":17.88,"whenMeasured":"2017-05-23T17:00:03.337-04:00"},{"id":134,"temperature":18.00,"whenMeasured":"2017-05-23T17:10:03.425-04:00"},{"id":135,"temperature":18.19,"whenMeasured":"2017-05-23T17:20:03.326-04:00"},{"id":136,"temperature":17.50,"whenMeasured":"2017-05-23T17:30:03.851-04:00"},{"id":137,"temperature":17.75,"whenMeasured":"2017-05-23T17:40:03.407-04:00"},{"id":138,"temperature":17.81,"whenMeasured":"2017-05-23T17:50:03.917-04:00"},{"id":139,"temperature":17.25,"whenMeasured":"2017-05-23T18:00:04.025-04:00"},{"id":140,"temperature":16.63,"whenMeasured":"2017-05-23T18:10:03.597-04:00"},{"id":141,"temperature":16.25,"whenMeasured":"2017-05-23T18:20:03.297-04:00"},{"id":142,"temperature":15.88,"whenMeasured":"2017-05-23T18:30:03.226-04:00"},{"id":143,"temperature":15.81,"whenMeasured":"2017-05-23T18:40:03.426-04:00"},{"id":144,"temperature":15.63,"whenMeasured":"2017-05-23T18:50:03.878-04:00"},{"id":145,"temperature":15.25,"whenMeasured":"2017-05-23T19:00:03.609-04:00"},{"id":146,"temperature":14.88,"whenMeasured":"2017-05-23T19:10:03.201-04:00"},{"id":147,"temperature":14.50,"whenMeasured":"2017-05-23T19:20:03.330-04:00"},{"id":148,"temperature":13.94,"whenMeasured":"2017-05-23T19:30:03.859-04:00"},{"id":149,"temperature":14.31,"whenMeasured":"2017-05-23T19:40:03.418-04:00"},{"id":150,"temperature":14.56,"whenMeasured":"2017-05-23T19:50:03.316-04:00"},{"id":151,"temperature":14.75,"whenMeasured":"2017-05-23T20:00:03.836-04:00"},{"id":152,"temperature":14.50,"whenMeasured":"2017-05-23T20:10:03.517-04:00"},{"id":153,"temperature":16.31,"whenMeasured":"2017-05-23T20:20:03.140-04:00"},{"id":154,"temperature":16.50,"whenMeasured":"2017-05-23T20:30:03.230-04:00"},{"id":155,"temperature":16.50,"whenMeasured":"2017-05-23T20:40:02.946-04:00"},{"id":156,"temperature":16.25,"whenMeasured":"2017-05-23T20:50:03.518-04:00"},{"id":157,"temperature":15.94,"whenMeasured":"2017-05-23T21:00:03.132-04:00"},{"id":158,"temperature":15.50,"whenMeasured":"2017-05-23T21:10:03.818-04:00"},{"id":159,"temperature":14.88,"whenMeasured":"2017-05-23T21:20:03.496-04:00"},{"id":160,"temperature":14.75,"whenMeasured":"2017-05-23T21:30:03.887-04:00"},{"id":161,"temperature":14.69,"whenMeasured":"2017-05-23T21:40:03.936-04:00"},{"id":162,"temperature":14.50,"whenMeasured":"2017-05-23T21:50:03.517-04:00"},{"id":163,"temperature":14.56,"whenMeasured":"2017-05-23T22:00:04.397-04:00"},{"id":164,"temperature":13.94,"whenMeasured":"2017-05-23T22:10:03.026-04:00"},{"id":165,"temperature":13.75,"whenMeasured":"2017-05-23T22:20:03.918-04:00"},{"id":166,"temperature":14.00,"whenMeasured":"2017-05-23T22:30:03.538-04:00"},{"id":167,"temperature":13.94,"whenMeasured":"2017-05-23T22:40:03.116-04:00"},{"id":168,"temperature":14.06,"whenMeasured":"2017-05-23T22:50:03.795-04:00"},{"id":169,"temperature":14.00,"whenMeasured":"2017-05-23T23:00:03.438-04:00"},{"id":170,"temperature":13.94,"whenMeasured":"2017-05-23T23:10:03.679-04:00"},{"id":171,"temperature":13.88,"whenMeasured":"2017-05-23T23:20:03.852-04:00"},{"id":172,"temperature":14.00,"whenMeasured":"2017-05-23T23:30:03.416-04:00"},{"id":173,"temperature":14.06,"whenMeasured":"2017-05-23T23:40:04.635-04:00"},{"id":174,"temperature":14.25,"whenMeasured":"2017-05-23T23:50:03.128-04:00"},{"id":175,"temperature":14.44,"whenMeasured":"2017-05-24T00:00:03.719-04:00"},{"id":176,"temperature":14.81,"whenMeasured":"2017-05-24T00:10:03.346-04:00"},{"id":177,"temperature":20.13,"whenMeasured":"2017-05-24T00:20:03.626-04:00"},{"id":178,"temperature":20.81,"whenMeasured":"2017-05-24T00:30:04.257-04:00"},{"id":179,"temperature":21.00,"whenMeasured":"2017-05-24T00:40:03.735-04:00"},{"id":180,"temperature":21.06,"whenMeasured":"2017-05-24T00:50:03.156-04:00"},{"id":181,"temperature":21.13,"whenMeasured":"2017-05-24T01:00:03.221-04:00"},{"id":182,"temperature":21.19,"whenMeasured":"2017-05-24T01:10:03.337-04:00"},{"id":183,"temperature":21.19,"whenMeasured":"2017-05-24T01:20:03.110-04:00"},{"id":184,"temperature":21.25,"whenMeasured":"2017-05-24T01:30:03.938-04:00"},{"id":185,"temperature":21.25,"whenMeasured":"2017-05-24T01:40:03.116-04:00"},{"id":186,"temperature":21.25,"whenMeasured":"2017-05-24T01:50:03.327-04:00"},{"id":187,"temperature":21.25,"whenMeasured":"2017-05-24T02:00:03.887-04:00"},{"id":188,"temperature":21.25,"whenMeasured":"2017-05-24T02:10:03.696-04:00"},{"id":189,"temperature":21.19,"whenMeasured":"2017-05-24T02:20:03.642-04:00"},{"id":190,"temperature":21.19,"whenMeasured":"2017-05-24T02:30:03.716-04:00"},{"id":191,"temperature":21.19,"whenMeasured":"2017-05-24T02:40:03.300-04:00"},{"id":192,"temperature":21.19,"whenMeasured":"2017-05-24T02:50:04.794-04:00"},{"id":193,"temperature":21.19,"whenMeasured":"2017-05-24T03:00:03.417-04:00"},{"id":194,"temperature":21.19,"whenMeasured":"2017-05-24T03:10:03.006-04:00"},{"id":195,"temperature":21.19,"whenMeasured":"2017-05-24T03:20:03.222-04:00"},{"id":196,"temperature":21.13,"whenMeasured":"2017-05-24T03:30:03.192-04:00"},{"id":197,"temperature":21.13,"whenMeasured":"2017-05-24T03:40:03.756-04:00"},{"id":198,"temperature":21.06,"whenMeasured":"2017-05-24T03:50:04.136-04:00"},{"id":199,"temperature":21.06,"whenMeasured":"2017-05-24T04:00:03.787-04:00"},{"id":200,"temperature":21.06,"whenMeasured":"2017-05-24T04:10:03.126-04:00"},{"id":201,"temperature":21.06,"whenMeasured":"2017-05-24T04:20:04.550-04:00"},{"id":202,"temperature":21.00,"whenMeasured":"2017-05-24T04:30:04.103-04:00"},{"id":203,"temperature":21.00,"whenMeasured":"2017-05-24T04:40:03.734-04:00"},{"id":204,"temperature":21.00,"whenMeasured":"2017-05-24T04:50:03.728-04:00"},{"id":205,"temperature":20.94,"whenMeasured":"2017-05-24T05:00:03.227-04:00"},{"id":206,"temperature":20.94,"whenMeasured":"2017-05-24T05:10:03.846-04:00"},{"id":207,"temperature":20.94,"whenMeasured":"2017-05-24T05:20:03.250-04:00"},{"id":208,"temperature":20.94,"whenMeasured":"2017-05-24T05:30:03.806-04:00"},{"id":209,"temperature":20.88,"whenMeasured":"2017-05-24T05:40:04.164-04:00"},{"id":210,"temperature":20.88,"whenMeasured":"2017-05-24T05:50:03.599-04:00"},{"id":211,"temperature":20.94,"whenMeasured":"2017-05-24T06:00:03.916-04:00"},{"id":212,"temperature":20.94,"whenMeasured":"2017-05-24T06:10:04.799-04:00"},{"id":213,"temperature":20.94,"whenMeasured":"2017-05-24T06:20:04.646-04:00"},{"id":214,"temperature":21.00,"whenMeasured":"2017-05-24T06:30:03.729-04:00"},{"id":215,"temperature":21.06,"whenMeasured":"2017-05-24T06:40:04.316-04:00"},{"id":216,"temperature":21.06,"whenMeasured":"2017-05-24T06:50:03.665-04:00"},{"id":217,"temperature":21.13,"whenMeasured":"2017-05-24T07:00:03.716-04:00"},{"id":218,"temperature":21.19,"whenMeasured":"2017-05-24T07:10:03.940-04:00"},{"id":219,"temperature":21.19,"whenMeasured":"2017-05-24T07:20:04.558-04:00"},{"id":220,"temperature":21.25,"whenMeasured":"2017-05-24T07:30:04.450-04:00"},{"id":221,"temperature":21.25,"whenMeasured":"2017-05-24T07:40:03.301-04:00"},{"id":222,"temperature":21.31,"whenMeasured":"2017-05-24T07:50:03.840-04:00"},{"id":223,"temperature":21.38,"whenMeasured":"2017-05-24T08:00:03.866-04:00"},{"id":224,"temperature":21.38,"whenMeasured":"2017-05-24T08:10:04.185-04:00"},{"id":225,"temperature":21.44,"whenMeasured":"2017-05-24T08:20:04.546-04:00"},{"id":226,"temperature":21.50,"whenMeasured":"2017-05-24T08:30:04.407-04:00"},{"id":227,"temperature":21.50,"whenMeasured":"2017-05-24T08:40:04.177-04:00"},{"id":228,"temperature":21.63,"whenMeasured":"2017-05-24T08:50:03.117-04:00"},{"id":229,"temperature":21.63,"whenMeasured":"2017-05-24T09:00:03.027-04:00"},{"id":230,"temperature":21.69,"whenMeasured":"2017-05-24T09:10:04.546-04:00"},{"id":231,"temperature":21.69,"whenMeasured":"2017-05-24T09:20:03.867-04:00"},{"id":232,"temperature":21.69,"whenMeasured":"2017-05-24T09:30:03.786-04:00"},{"id":233,"temperature":21.69,"whenMeasured":"2017-05-24T09:40:03.596-04:00"},{"id":234,"temperature":21.75,"whenMeasured":"2017-05-24T09:50:03.979-04:00"},{"id":235,"temperature":21.75,"whenMeasured":"2017-05-24T10:00:03.958-04:00"},{"id":236,"temperature":21.75,"whenMeasured":"2017-05-24T10:10:04.094-04:00"},{"id":237,"temperature":21.75,"whenMeasured":"2017-05-24T10:20:02.996-04:00"},{"id":238,"temperature":21.75,"whenMeasured":"2017-05-24T10:30:04.281-04:00"},{"id":239,"temperature":21.75,"whenMeasured":"2017-05-24T10:40:03.216-04:00"},{"id":240,"temperature":21.75,"whenMeasured":"2017-05-24T10:50:04.569-04:00"},{"id":241,"temperature":21.75,"whenMeasured":"2017-05-24T11:00:04.328-04:00"},{"id":242,"temperature":21.75,"whenMeasured":"2017-05-24T11:10:03.776-04:00"},{"id":243,"temperature":21.69,"whenMeasured":"2017-05-24T11:20:03.885-04:00"},{"id":244,"temperature":21.69,"whenMeasured":"2017-05-24T11:30:04.006-04:00"},{"id":245,"temperature":21.63,"whenMeasured":"2017-05-24T11:40:03.876-04:00"},{"id":246,"temperature":21.63,"whenMeasured":"2017-05-24T11:50:03.619-04:00"},{"id":247,"temperature":21.56,"whenMeasured":"2017-05-24T12:00:03.808-04:00"},{"id":248,"temperature":21.50,"whenMeasured":"2017-05-24T12:10:04.356-04:00"},{"id":249,"temperature":21.50,"whenMeasured":"2017-05-24T12:20:04.274-04:00"},{"id":250,"temperature":21.44,"whenMeasured":"2017-05-24T12:30:03.238-04:00"},{"id":251,"temperature":21.44,"whenMeasured":"2017-05-24T12:40:04.215-04:00"},{"id":252,"temperature":21.38,"whenMeasured":"2017-05-24T12:50:03.806-04:00"},{"id":253,"temperature":21.38,"whenMeasured":"2017-05-24T13:00:03.596-04:00"},{"id":254,"temperature":21.38,"whenMeasured":"2017-05-24T13:10:04.189-04:00"},{"id":255,"temperature":21.25,"whenMeasured":"2017-05-24T13:20:04.558-04:00"},{"id":256,"temperature":21.25,"whenMeasured":"2017-05-24T13:30:04.655-04:00"},{"id":257,"temperature":21.19,"whenMeasured":"2017-05-24T13:40:04.597-04:00"},{"id":258,"temperature":21.13,"whenMeasured":"2017-05-24T13:50:03.130-04:00"},{"id":259,"temperature":21.06,"whenMeasured":"2017-05-24T14:00:03.731-04:00"},{"id":260,"temperature":21.00,"whenMeasured":"2017-05-24T14:10:03.914-04:00"},{"id":261,"temperature":20.94,"whenMeasured":"2017-05-24T14:20:04.391-04:00"},{"id":262,"temperature":20.88,"whenMeasured":"2017-05-24T14:30:03.999-04:00"},{"id":263,"temperature":20.88,"whenMeasured":"2017-05-24T14:40:03.821-04:00"},{"id":264,"temperature":20.81,"whenMeasured":"2017-05-24T14:50:04.096-04:00"},{"id":265,"temperature":20.75,"whenMeasured":"2017-05-24T15:00:03.657-04:00"},{"id":266,"temperature":20.75,"whenMeasured":"2017-05-24T15:10:04.015-04:00"},{"id":267,"temperature":20.69,"whenMeasured":"2017-05-24T15:20:04.556-04:00"},{"id":268,"temperature":20.63,"whenMeasured":"2017-05-24T15:30:03.875-04:00"},{"id":269,"temperature":20.56,"whenMeasured":"2017-05-24T15:40:04.527-04:00"},{"id":270,"temperature":20.50,"whenMeasured":"2017-05-24T15:50:03.826-04:00"},{"id":271,"temperature":20.44,"whenMeasured":"2017-05-24T16:00:03.837-04:00"},{"id":272,"temperature":20.50,"whenMeasured":"2017-05-24T16:10:03.996-04:00"},{"id":273,"temperature":20.50,"whenMeasured":"2017-05-24T16:20:03.867-04:00"},{"id":274,"temperature":20.44,"whenMeasured":"2017-05-24T16:30:03.815-04:00"},{"id":275,"temperature":20.44,"whenMeasured":"2017-05-24T16:40:04.215-04:00"},{"id":276,"temperature":20.38,"whenMeasured":"2017-05-24T16:50:03.720-04:00"}]
-        var plotData = [];
-        temperatures.forEach(measurement => {
-            plotData.push([Date.parse(measurement.whenMeasured), measurement.temperature]);
-        });
+        $(function() {
+            $.getJSON("http://pogodynka.pietraszek.pl/datavault/temperatures", function(returnedJSON) {
+                var plotData = [];
+                returnedJSON.temperatures.forEach(measurement => {
+                    plotData.push([Date.parse(measurement.whenMeasured), measurement.temperature]);
+                });
+                drawGraph(plotData);
+            });
 
-        Highcharts.setOptions({
-            global: {
-                timezone: 'Europe/Warsaw'
+            function drawGraph(plotData) {
+                Highcharts.setOptions({
+                    global: {
+                        timezone: 'Europe/Warsaw'
+                    }
+                });
+
+                Highcharts.chart('temperature-chart', {
+                    rangeSelector: {
+                        selected: 4
+                    },
+                    chart: {
+                        type: 'spline'
+                    },
+                    title: {
+                        text: 'Wykres temperatury'
+                    },
+                    subtitle: {
+                        text: 'Źródło: pogodynka.pietraszek.pl'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Temperatura'
+                        },
+                        labels: {
+                            useHTML: true,
+                            formatter: function() {
+                                return this.value + ' [<sup>o</sup>C]';
+                            }
+                        }
+                    },
+                    xAxis: {
+                        type: 'datetime'
+                    },
+                    series: [{
+                        tooltip: {
+                            dateTimeLabelFormats: {
+                                millisecond:"%d.%m.%Y %H:%M",
+                                second:"%d.%m.%Y %H:%M",
+                                minute:"%d.%m.%Y %H:%M",
+                                hour:"%d.%m.%Y %H:%M",
+                                day:"%d.%m.%Y",
+                                week:"Week from %d.%m.%Y",
+                                month:"%m.%Y",
+                                year:"%Y"
+                            }
+                        },
+                        name: 'Temperatura',
+                        data: plotData,
+                        type: 'areaspline',
+                        color: '#c4392d',
+                        negativeColor: '#5679c4',
+                        fillOpacity: 0.3,
+                        showInNavigator: true
+                    }]
+                });
             }
         });
-
-        Highcharts.chart('temperature-chart', {
-        	rangeSelector: {
-        	    selected: 4
-        	},
-            chart: {
-                type: 'spline'
-            },
-            title: {
-                text: 'Wykres temperatury'
-            },
-            subtitle: {
-                text: 'Źródło: pogodynka.pietraszek.pl'
-            },
-            yAxis: {
-                title: {
-                    text: 'Temperatura'
-                },
-                labels: {
-                    useHTML: true,
-                    formatter: function() {
-                        return this.value + ' [<sup>o</sup>C]';
-                    }
-                }
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            series: [{
-                tooltip: {
-					dateTimeLabelFormats: {
-						millisecond:"%d.%m.%Y %H:%M",
-						second:"%d.%m.%Y %H:%M",
-						minute:"%d.%m.%Y %H:%M",
-						hour:"%d.%m.%Y %H:%M",
-						day:"%d.%m.%Y",
-						week:"Week from %d.%m.%Y",
-						month:"%m.%Y",
-						year:"%Y"
-					}
-				},
-                name: 'Temperatura',
-                data: plotData,
-				type: 'areaspline',
-				color: '#c4392d',
-				negativeColor: '#5679c4',
-				fillOpacity: 0.3,
-    			showInNavigator: true
-            }]
-        });
-      });
     </script>
   </body>
 </html>
