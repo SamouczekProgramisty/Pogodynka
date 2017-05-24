@@ -43,8 +43,34 @@
 
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/pl.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script>
-      Highcharts.chart('temperature-chart', {
+      $(function() {
+        var temperatures = [
+            {"id": 253, "temperature": 21.38, "whenMeasured": "2017-05-24T13:00:03.596-04:00"},
+            {"id": 254, "temperature": 21.38, "whenMeasured": "2017-05-24T13:10:04.189-04:00"},
+            {"id": 255, "temperature": 21.25, "whenMeasured": "2017-05-24T13:20:04.558-04:00"},
+            {"id": 256, "temperature": 21.25, "whenMeasured": "2017-05-24T13:30:04.655-04:00"},
+            {"id": 257, "temperature": 21.19, "whenMeasured": "2017-05-24T13:40:04.597-04:00"},
+            {"id": 258, "temperature": 21.13, "whenMeasured": "2017-05-24T13:50:03.130-04:00"},
+            {"id": 259, "temperature": 21.06, "whenMeasured": "2017-05-24T14:00:03.731-04:00"}
+        ];
+        var plotData = [];
+        temperatures.forEach(measurement => {
+            plotData.push([Date.parse(measurement.whenMeasured), measurement.temperature]);
+        });
+
+        Highcharts.setOptions({
+            global: {
+                timezone: 'Europe/Warsaw'
+            }
+        });
+
+        var chart = Highcharts.chart('temperature-chart', {
           title: {
               text: 'Wykres temperatury'
           },
@@ -54,17 +80,22 @@
           yAxis: {
               title: {
                   text: 'Temperatura'
+              },
+              labels: {
+                  useHTML: true,
+                  formatter: function() {
+                      return this.value + ' [<sup>o</sup>C]';
+                  }
               }
           },
-          plotOptions: {
-              series: {
-                  pointStart: 2010
-              }
+          xAxis: {
+              type: 'datetime'
           },
           series: [{
               name: 'Temperatura',
-              data: [5.12, 7.12, -3, 0.12, 3, 5, 5, 3]
+              data: plotData
           }]
+        });
       });
     </script>
   </body>
