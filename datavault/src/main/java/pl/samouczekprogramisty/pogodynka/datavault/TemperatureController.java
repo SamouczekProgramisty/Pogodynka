@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,6 +65,7 @@ public class TemperatureController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
+    @CrossOrigin
     public Map<String, List<TemperatureMeasurement>> listTemperatures() {
         LOG.debug("Listing all temperatures");
         List<TemperatureMeasurement> temperatures = temperatureService.getTemperatures();

@@ -51,7 +51,7 @@ public class JPAConfigration {
         jpaProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         jpaProperties.setProperty("hibernate.show_sql", "true");
         jpaProperties.setProperty("hibernate.format_sql", "true");
-        jpaProperties.setProperty("hibernate.hbm2ddl.auto", "create");
+        jpaProperties.setProperty("hibernate.hbm2ddl.auto", "validate");
         jpaProperties.setProperty("jadira.usertype.autoRegisterUserTypes", "true");
 
         entityManager.setJpaProperties(jpaProperties);
