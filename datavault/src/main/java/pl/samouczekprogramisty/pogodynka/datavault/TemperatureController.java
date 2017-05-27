@@ -21,7 +21,6 @@ import pl.samouczekprogramisty.pogodynka.datavault.model.TemperatureMeasurement;
 
 import javax.validation.Valid;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -68,9 +67,6 @@ public class TemperatureController {
     @CrossOrigin
     public Map<String, List<TemperatureMeasurement>> listTemperatures() {
         LOG.debug("Listing all temperatures");
-        List<TemperatureMeasurement> temperatures = temperatureService.getTemperatures();
-        Map<String, List<TemperatureMeasurement>> responseMap = new HashMap<>();
-        responseMap.put("temperatures", temperatures);
-        return responseMap;
+        return Collections.singletonMap("temperatures", temperatureService.getTemperatures());
     }
 }
