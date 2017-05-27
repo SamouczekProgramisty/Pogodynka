@@ -27,7 +27,7 @@ class pogodynka::node_thermometer(
   cron {
     'measure_temperature':
       command => "java -jar ${jar_file} ${authorisation_token} ${datavault_endpoint} ${thermometer_input_file_path} && curl -fsS --retry 3 ${healthcheck_endpoint}",
-      minute  => '*/10',
+      minute  => '0',
       user    => 'pogodynka',
       require => [User['pogodynka'], Exec['build_jar']];
 
