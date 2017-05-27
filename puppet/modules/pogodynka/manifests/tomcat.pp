@@ -28,6 +28,12 @@ class pogodynka::tomcat (
       value       => hiera('pogodynka_authorisation_token');
   }
 
+  tomcat::config::properties::property {
+    'spring.profiles.active':
+      value         => 'production',
+      catalina_base => $catalina_base;
+  }
+
   exec {
     'build_war':
       command => "${code_dir}/gradlew -b ${code_dir}/datavault/datavault.gradle war",
