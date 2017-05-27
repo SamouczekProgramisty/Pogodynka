@@ -24,4 +24,4 @@
 	url = https://github.com/voxpupuli/puppet-nginx
 [submodule "puppet/modules/timezone"]
 	path = puppet/modules/timezone
-	url = https://github.com/saz/puppet-timezone
+	url = https://github.com/saz/puppet-timezone.git
