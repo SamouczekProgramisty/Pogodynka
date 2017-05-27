@@ -31,7 +31,8 @@ public class TemperatureServiceImpl implements TemperatureService {
                     "FROM temperature_measurements " +
                     "WHERE EXTRACT('hour' FROM when_measured) IN (1, 7, 13, 19) " +
                     "AND EXTRACT('minute' FROM when_measured) < 2) AS daily_temps " +
-                    "GROUP BY day";
+                    "GROUP BY day " +
+                    "ORDER BY day";
 
     private final TemperatureMeasurementDAO temperatureDAO;
 
