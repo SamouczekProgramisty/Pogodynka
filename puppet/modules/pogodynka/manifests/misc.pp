@@ -1,4 +1,9 @@
 class pogodynka::misc {
+  class {
+    'timezone':
+      timezone => 'UTC';
+  }
+
   user {
     'pogodynka':
       ensure     => 'present',
