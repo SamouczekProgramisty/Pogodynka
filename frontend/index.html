@@ -37,11 +37,14 @@
           <div class="row placeholders">
             <div id="temperature-chart"></div>
           </div>
+          <div class="row placeholders">
+            <button type="button" class="btn btn-primary" id="plotExtremes">Znajdź min/max</button>
+          </div>
         </div>
       </div>
     </div>
 
-    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data.min.js"></script>
@@ -50,33 +53,140 @@
 
     <script>
         $(function() {
-            $.getJSON("http://pogodynka.pietraszek.pl/datavault/temperatures", function(returnedJSON) {
-                var plotData = [];
-                returnedJSON.temperatures.forEach(measurement => {
-                    plotData.push([Date.parse(measurement.whenMeasured), measurement.temperature]);
+            var chart;
+            var dataSeries = [];
+            var seriesCount = 0;
+			const TEMPERATURES = 0;
+			const DAILY_AVERAGES = 1;
+            const ONE_DAY_WITHOUT_SECOND = (24 * 3600 - 1) * 1000;
+
+            $('#plotExtremes').click(function() {
+                var axis = chart.yAxis[0];
+                var dataMin = axis.series[0].dataMin;
+                var dataMax = axis.series[0].dataMax;
+                axis.removePlotLine('min');
+                axis.removePlotLine('max');
+
+                axis.addPlotLine({
+                    id: 'min',
+                    width: 1,
+                    color: 'blue',
+                    dashStyle: 'dash',
+                    label: {
+                        useHTML: true,
+                        text: `Temperatura minimalna ${dataMin}<sup>o</sup>C`
+                    },
+                    value: dataMin
                 });
-                drawGraph(plotData);
+
+                axis.addPlotLine({
+                    id: 'max',
+                    width: 1,
+                    color: 'red',
+                    dashStyle: 'dash',
+                    label: {
+                        useHTML: true,
+                        text: `Temperatura maksymalna ${dataMax}<sup>o</sup>C`
+                    },
+                    value: dataMax
+                });
             });
 
-            function drawGraph(plotData) {
-                Highcharts.setOptions({
-                    global: {
-                        timezone: 'Europe/Warsaw'
-                    }
+            $.getJSON("http://pogodynka.pietraszek.pl/datavault/temperatures", function(returnedJSON) {
+                var temperatures = [];
+                returnedJSON.temperatures.forEach(measurement => {
+                    temperatures.push([Date.parse(measurement.whenMeasured), measurement.temperature]);
                 });
 
-                Highcharts.chart('temperature-chart', {
-                    rangeSelector: {
-                        selected: 4
+                dataSeries[TEMPERATURES] = {
+                    tooltip: {
+                        dateTimeLabelFormats: {
+                            millisecond:"%d.%m.%Y %H:%M",
+                            second:"%d.%m.%Y %H:%M",
+                            minute:"%d.%m.%Y %H:%M",
+                            hour:"%d.%m.%Y %H:%M",
+                            day:"%d.%m.%Y",
+                            week:"Week from %d.%m.%Y",
+                            month:"%m.%Y",
+                            year:"%Y"
+                        }
                     },
+                    name: 'Temperatura',
+                    data: temperatures,
+                    type: 'areaspline',
+                    color: '#c4392d',
+                    negativeColor: '#5679c4',
+                    fillOpacity: 0.3,
+                    showInNavigator: true
+                };
+
+                seriesCount += 1;
+
+                if (seriesCount === 2) {
+                    drawChart();
+                }
+            });
+
+            $.getJSON("http://pogodynka.pietraszek.pl/datavault/temperatures/average", function(returnedJSON) {
+                var averages = [];
+                returnedJSON.temperatureAverages.forEach(measurement => {
+                    var dayStart = Date.parse(measurement.day);
+                    var averageTemperature = measurement.averageTemperature;
+                    averages.push([dayStart, averageTemperature]);
+                    averages.push([dayStart + ONE_DAY_WITHOUT_SECOND, averageTemperature]);
+                });
+                
+                dataSeries[DAILY_AVERAGES] = {
+                    name: 'Średnia dzienna temperatura',
+                    data: averages,
+                    type: 'line',
+                    showInNavigator: false,
+                    pointWidth: 150,
+                    zIndex: -1
+                };
+
+                seriesCount += 1;
+
+                if (seriesCount === 2) {
+                    drawChart();
+                }
+            });
+
+            function drawChart() {
+                chart = Highcharts.stockChart('temperature-chart', {
                     chart: {
-                        type: 'spline'
+                        height: '500',
                     },
                     title: {
                         text: 'Wykres temperatury'
                     },
                     subtitle: {
                         text: 'Źródło: pogodynka.pietraszek.pl'
+                    },
+                    rangeSelector: {
+                        selected: 0,
+                        inputDateFormat: '%Y-%m-%d',
+                        buttons: [
+                            {
+                                type: 'day',
+                                count: 1,
+                                text: '1d'
+                            },
+                            {
+                                type: 'week',
+                                count: 1,
+                                text: '7d'
+                            },
+                            {
+                                type: 'month',
+                                count: 1,
+                                text: '1m'
+                            },
+                            {
+                                type: 'all',
+                                text: '∞'
+                            }
+                        ]
                     },
                     yAxis: {
                         title: {
@@ -92,27 +202,7 @@
                     xAxis: {
                         type: 'datetime'
                     },
-                    series: [{
-                        tooltip: {
-                            dateTimeLabelFormats: {
-                                millisecond:"%d.%m.%Y %H:%M",
-                                second:"%d.%m.%Y %H:%M",
-                                minute:"%d.%m.%Y %H:%M",
-                                hour:"%d.%m.%Y %H:%M",
-                                day:"%d.%m.%Y",
-                                week:"Week from %d.%m.%Y",
-                                month:"%m.%Y",
-                                year:"%Y"
-                            }
-                        },
-                        name: 'Temperatura',
-                        data: plotData,
-                        type: 'areaspline',
-                        color: '#c4392d',
-                        negativeColor: '#5679c4',
-                        fillOpacity: 0.3,
-                        showInNavigator: true
-                    }]
+                    series: dataSeries
                 });
             }
         });
