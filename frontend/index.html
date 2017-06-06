@@ -46,6 +46,7 @@
 
     <script src="https://code.highcharts.com/stock/highstock.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://highcharts.github.io/export-csv/export-csv.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/pl.js"></script>
@@ -88,6 +89,7 @@
                         useHTML: true,
                         text: `Temperatura maksymalna ${dataMax}<sup>o</sup>C`
                     },
+                    lineWidth: 1,
                     value: dataMax
                 });
             });
@@ -111,12 +113,14 @@
                             year:"%Y"
                         }
                     },
+                    marker: {
+                        enabled: true
+                    },
                     name: 'Temperatura',
                     data: temperatures,
-                    type: 'areaspline',
+                    type: 'spline',
+                    lineWidth: 1,
                     color: '#c4392d',
-                    negativeColor: '#5679c4',
-                    fillOpacity: 0.3,
                     showInNavigator: true
                 };
 
@@ -142,7 +146,8 @@
                     type: 'line',
                     showInNavigator: false,
                     pointWidth: 150,
-                    zIndex: -1
+                    zIndex: -1,
+                    includeInCSVExport: false
                 };
 
                 seriesCount += 1;
@@ -155,7 +160,7 @@
             function drawChart() {
                 chart = Highcharts.stockChart('temperature-chart', {
                     chart: {
-                        height: '500',
+                        height: '700',
                     },
                     title: {
                         text: 'Wykres temperatury'
@@ -197,7 +202,10 @@
                             formatter: function() {
                                 return this.value + ' [<sup>o</sup>C]';
                             }
-                        }
+                        },
+                        tickInterval: 1,
+                        softMax: 35,
+                        softMin: -15
                     },
                     xAxis: {
                         type: 'datetime'
