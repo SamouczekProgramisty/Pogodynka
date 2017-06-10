@@ -12,8 +12,6 @@ import pl.samouczekprogramisty.pogodynka.datavault.model.TemperatureMeasurementD
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class TemperatureServiceImpl implements TemperatureService {
@@ -85,9 +83,7 @@ public class TemperatureServiceImpl implements TemperatureService {
 
     @Override
     public List<TemperatureMeasurement> getTemperatures() {
-        return StreamSupport
-                .stream(temperatureDAO.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        return temperatureDAO.findAllByOrderByWhenMeasuredAsc();
     }
 
 }
